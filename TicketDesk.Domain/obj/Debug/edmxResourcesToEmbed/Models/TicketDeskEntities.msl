@@ -1,0 +1,127 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="TicketDeskModelStoreContainer" CdmEntityContainer="TicketDeskEntities">
+    <EntitySetMapping Name="TicketAttachments">
+      <EntityTypeMapping TypeName="TicketDeskModel.TicketAttachment">
+        <MappingFragment StoreEntitySet="TicketAttachments">
+          <ScalarProperty Name="TicketId" ColumnName="TicketId" />
+          <ScalarProperty Name="FileId" ColumnName="FileId" />
+          <ScalarProperty Name="FileName" ColumnName="FileName" />
+          <ScalarProperty Name="FileSize" ColumnName="FileSize" />
+          <ScalarProperty Name="FileType" ColumnName="FileType" />
+          <ScalarProperty Name="UploadedBy" ColumnName="UploadedBy" />
+          <ScalarProperty Name="UploadedDate" ColumnName="UploadedDate" />
+          <ScalarProperty Name="FileContents" ColumnName="FileContents" />
+          <ScalarProperty Name="FileDescription" ColumnName="FileDescription" />
+          <ScalarProperty Name="IsPending" ColumnName="IsPending" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="TicketComments">
+      <EntityTypeMapping TypeName="TicketDeskModel.TicketComment">
+        <MappingFragment StoreEntitySet="TicketComments">
+          <ScalarProperty Name="TicketId" ColumnName="TicketId" />
+          <ScalarProperty Name="CommentId" ColumnName="CommentId" />
+          <ScalarProperty Name="CommentEvent" ColumnName="CommentEvent" />
+          <ScalarProperty Name="Comment" ColumnName="Comment" />
+          <ScalarProperty Name="IsHtml" ColumnName="IsHtml" />
+          <ScalarProperty Name="CommentedBy" ColumnName="CommentedBy" />
+          <ScalarProperty Name="CommentedDate" ColumnName="CommentedDate" />
+          <ScalarProperty Name="Version" ColumnName="Version" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="TicketEventNotifications">
+      <EntityTypeMapping TypeName="TicketDeskModel.TicketEventNotification">
+        <MappingFragment StoreEntitySet="TicketEventNotifications">
+          <ScalarProperty Name="TicketId" ColumnName="TicketId" />
+          <ScalarProperty Name="CommentId" ColumnName="CommentId" />
+          <ScalarProperty Name="NotifyUser" ColumnName="NotifyUser" />
+          <ScalarProperty Name="NotifyUserDisplayName" ColumnName="NotifyUserDisplayName" />
+          <ScalarProperty Name="NotifyEmail" ColumnName="NotifyEmail" />
+          <ScalarProperty Name="NotifyUserReason" ColumnName="NotifyUserReason" />
+          <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+          <ScalarProperty Name="DeliveryAttempts" ColumnName="DeliveryAttempts" />
+          <ScalarProperty Name="LastDeliveryAttemptDate" ColumnName="LastDeliveryAttemptDate" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
+          <ScalarProperty Name="NextDeliveryAttemptDate" ColumnName="NextDeliveryAttemptDate" />
+          <ScalarProperty Name="EventGeneratedByUser" ColumnName="EventGeneratedByUser" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="TicketTags">
+      <EntityTypeMapping TypeName="TicketDeskModel.TicketTag">
+        <MappingFragment StoreEntitySet="TicketTags">
+          <ScalarProperty Name="TicketTagId" ColumnName="TicketTagId" />
+          <ScalarProperty Name="TagName" ColumnName="TagName" />
+          <ScalarProperty Name="TicketId" ColumnName="TicketId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="AdCachedRoleMembers">
+      <EntityTypeMapping TypeName="TicketDeskModel.AdCachedRoleMember">
+        <MappingFragment StoreEntitySet="AdCachedRoleMembers">
+          <ScalarProperty Name="MemberDisplayName" ColumnName="MemberDisplayName" />
+          <ScalarProperty Name="MemberName" ColumnName="MemberName" />
+          <ScalarProperty Name="GroupName" ColumnName="GroupName" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="AdCachedUserProperties">
+      <EntityTypeMapping TypeName="TicketDeskModel.AdCachedUserProperty">
+        <MappingFragment StoreEntitySet="AdCachedUserProperties">
+          <ScalarProperty Name="IsActiveInAd" ColumnName="IsActiveInAd" />
+          <ScalarProperty Name="LastRefreshed" ColumnName="LastRefreshed" />
+          <ScalarProperty Name="PropertyValue" ColumnName="PropertyValue" />
+          <ScalarProperty Name="PropertyName" ColumnName="PropertyName" />
+          <ScalarProperty Name="UserName" ColumnName="UserName" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Settings">
+      <EntityTypeMapping TypeName="TicketDeskModel.Setting">
+        <MappingFragment StoreEntitySet="Settings">
+          <ScalarProperty Name="SettingDescription" ColumnName="SettingDescription" />
+          <ScalarProperty Name="SettingType" ColumnName="SettingType" />
+          <ScalarProperty Name="DefaultValue" ColumnName="DefaultValue" />
+          <ScalarProperty Name="SettingValue" ColumnName="SettingValue" />
+          <ScalarProperty Name="SettingName" ColumnName="SettingName" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Tickets">
+      <EntityTypeMapping TypeName="TicketDeskModel.Ticket">
+        <MappingFragment StoreEntitySet="Tickets">
+          <ScalarProperty Name="Version" ColumnName="Version" />
+          <ScalarProperty Name="PublishedToKb" ColumnName="PublishedToKb" />
+          <ScalarProperty Name="AffectsCustomer" ColumnName="AffectsCustomer" />
+          <ScalarProperty Name="Priority" ColumnName="Priority" />
+          <ScalarProperty Name="LastUpdateDate" ColumnName="LastUpdateDate" />
+          <ScalarProperty Name="LastUpdateBy" ColumnName="LastUpdateBy" />
+          <ScalarProperty Name="CurrentStatusSetBy" ColumnName="CurrentStatusSetBy" />
+          <ScalarProperty Name="CurrentStatusDate" ColumnName="CurrentStatusDate" />
+          <ScalarProperty Name="CurrentStatus" ColumnName="CurrentStatus" />
+          <ScalarProperty Name="AssignedTo" ColumnName="AssignedTo" />
+          <ScalarProperty Name="Owner" ColumnName="Owner" />
+          <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+          <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+          <ScalarProperty Name="TagList" ColumnName="TagList" />
+          <ScalarProperty Name="IsHtml" ColumnName="IsHtml" />
+          <ScalarProperty Name="AnalysisNote" ColumnName="AnalysisNote" />
+          <ScalarProperty Name="AnalysisRemark" ColumnName="AnalysisRemark" />
+          <ScalarProperty Name="AnalysisDetail" ColumnName="AnalysisDetail" />
+          <ScalarProperty Name="TargetVersion" ColumnName="TargetVersion" />
+          <ScalarProperty Name="TargetDevice" ColumnName="TargetDevice" />
+          <ScalarProperty Name="TestOutline" ColumnName="TestOutline" />
+          <ScalarProperty Name="Result" ColumnName="Result" />
+          <ScalarProperty Name="Details" ColumnName="Details" />
+          <ScalarProperty Name="Title" ColumnName="Title" />
+          <ScalarProperty Name="SubCategory" ColumnName="SubCategory" />
+          <ScalarProperty Name="Category" ColumnName="Category" />
+          <ScalarProperty Name="Type" ColumnName="Type" />
+          <ScalarProperty Name="TicketId" ColumnName="TicketId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

@@ -1,0 +1,210 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="TicketDeskModel" Alias="Self" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityContainer Name="TicketDeskEntities" annotation:LazyLoadingEnabled="true" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation">
+    <EntitySet Name="TicketAttachments" EntityType="TicketDeskModel.TicketAttachment" />
+    <EntitySet Name="TicketComments" EntityType="TicketDeskModel.TicketComment" />
+    <EntitySet Name="TicketEventNotifications" EntityType="TicketDeskModel.TicketEventNotification" />
+    <EntitySet Name="TicketTags" EntityType="TicketDeskModel.TicketTag" />
+    <AssociationSet Name="FK_TicketEventNotifications_TicketComments" Association="TicketDeskModel.FK_TicketEventNotifications_TicketComments">
+      <End Role="TicketComments" EntitySet="TicketComments" />
+      <End Role="TicketEventNotifications" EntitySet="TicketEventNotifications" />
+    </AssociationSet>
+    <EntitySet Name="AdCachedRoleMembers" EntityType="TicketDeskModel.AdCachedRoleMember" />
+    <EntitySet Name="AdCachedUserProperties" EntityType="TicketDeskModel.AdCachedUserProperty" />
+    <EntitySet Name="Settings" EntityType="TicketDeskModel.Setting" />
+    <EntitySet Name="Tickets" EntityType="TicketDeskModel.Ticket" />
+    <AssociationSet Name="FK_TicketAttachments_Tickets" Association="TicketDeskModel.FK_TicketAttachments_Tickets">
+      <End Role="Ticket" EntitySet="Tickets" />
+      <End Role="TicketAttachment" EntitySet="TicketAttachments" />
+    </AssociationSet>
+    <AssociationSet Name="FK_TicketComments_Tickets" Association="TicketDeskModel.FK_TicketComments_Tickets">
+      <End Role="Ticket" EntitySet="Tickets" />
+      <End Role="TicketComment" EntitySet="TicketComments" />
+    </AssociationSet>
+    <AssociationSet Name="FK_TicketTags_Tickets" Association="TicketDeskModel.FK_TicketTags_Tickets">
+      <End Role="Ticket" EntitySet="Tickets" />
+      <End Role="TicketTag" EntitySet="TicketTags" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="TicketAttachment">
+    <Key>
+      <PropertyRef Name="FileId" />
+    </Key>
+    <Property Name="TicketId" Type="Int32" />
+    <Property Name="FileId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
+    <Property Name="FileName" Type="String" Nullable="false" MaxLength="255" Unicode="true" FixedLength="false" />
+    <Property Name="FileSize" Type="Int32" Nullable="false" />
+    <Property Name="FileType" Type="String" Nullable="false" MaxLength="250" Unicode="true" FixedLength="false" />
+    <Property Name="UploadedBy" Type="String" Nullable="false" MaxLength="100" Unicode="true" FixedLength="false" />
+    <Property Name="UploadedDate" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="FileContents" Type="Binary" Nullable="false" MaxLength="Max" FixedLength="false" />
+    <Property Name="FileDescription" Type="String" MaxLength="500" Unicode="true" FixedLength="false" />
+    <Property Name="IsPending" Type="Boolean" Nullable="false" />
+    <NavigationProperty Name="Ticket" Relationship="TicketDeskModel.FK_TicketAttachments_Tickets" FromRole="TicketAttachment" ToRole="Ticket" />
+  </EntityType>
+  <EntityType Name="TicketComment">
+    <Key>
+      <PropertyRef Name="TicketId" />
+      <PropertyRef Name="CommentId" />
+    </Key>
+    <Property Name="TicketId" Type="Int32" Nullable="false" />
+    <Property Name="CommentId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
+    <Property Name="CommentEvent" Type="String" MaxLength="500" Unicode="true" FixedLength="false" />
+    <Property Name="Comment" Type="String" MaxLength="Max" Unicode="true" FixedLength="false" />
+    <Property Name="IsHtml" Type="Boolean" Nullable="false" />
+    <Property Name="CommentedBy" Type="String" Nullable="false" MaxLength="100" Unicode="true" FixedLength="false" />
+    <Property Name="CommentedDate" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="Version" Type="Binary" Nullable="false" MaxLength="8" FixedLength="true" annotation:StoreGeneratedPattern="Computed" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
+    <NavigationProperty Name="TicketEventNotifications" Relationship="TicketDeskModel.FK_TicketEventNotifications_TicketComments" FromRole="TicketComments" ToRole="TicketEventNotifications" />
+    <NavigationProperty Name="Ticket" Relationship="TicketDeskModel.FK_TicketComments_Tickets" FromRole="TicketComment" ToRole="Ticket" />
+  </EntityType>
+  <EntityType Name="TicketEventNotification">
+    <Key>
+      <PropertyRef Name="TicketId" />
+      <PropertyRef Name="CommentId" />
+      <PropertyRef Name="NotifyUser" />
+    </Key>
+    <Property Name="TicketId" Type="Int32" Nullable="false" />
+    <Property Name="CommentId" Type="Int32" Nullable="false" />
+    <Property Name="NotifyUser" Type="String" Nullable="false" MaxLength="100" Unicode="true" FixedLength="false" />
+    <Property Name="NotifyUserDisplayName" Type="String" Nullable="false" MaxLength="100" Unicode="true" FixedLength="false" />
+    <Property Name="NotifyEmail" Type="String" Nullable="false" MaxLength="255" Unicode="true" FixedLength="false" />
+    <Property Name="NotifyUserReason" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
+    <Property Name="CreatedDate" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="DeliveryAttempts" Type="Int32" Nullable="false" />
+    <Property Name="LastDeliveryAttemptDate" Type="DateTime" Precision="3" />
+    <Property Name="Status" Type="String" Nullable="false" MaxLength="20" Unicode="true" FixedLength="false" />
+    <Property Name="NextDeliveryAttemptDate" Type="DateTime" Precision="3" />
+    <Property Name="EventGeneratedByUser" Type="String" Nullable="false" MaxLength="100" Unicode="true" FixedLength="false" />
+    <NavigationProperty Name="TicketComment" Relationship="TicketDeskModel.FK_TicketEventNotifications_TicketComments" FromRole="TicketEventNotifications" ToRole="TicketComments" />
+  </EntityType>
+  <EntityType Name="TicketTag">
+    <Key>
+      <PropertyRef Name="TicketTagId" />
+    </Key>
+    <Property Name="TicketTagId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
+    <Property Name="TagName" Type="String" Nullable="false" MaxLength="100" Unicode="true" FixedLength="false" />
+    <Property Name="TicketId" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Ticket" Relationship="TicketDeskModel.FK_TicketTags_Tickets" FromRole="TicketTag" ToRole="Ticket" />
+  </EntityType>
+  <Association Name="FK_TicketEventNotifications_TicketComments">
+    <End Role="TicketComments" Type="TicketDeskModel.TicketComment" Multiplicity="1" />
+    <End Role="TicketEventNotifications" Type="TicketDeskModel.TicketEventNotification" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TicketComments">
+        <PropertyRef Name="TicketId" />
+        <PropertyRef Name="CommentId" />
+      </Principal>
+      <Dependent Role="TicketEventNotifications">
+        <PropertyRef Name="TicketId" />
+        <PropertyRef Name="CommentId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="AdCachedRoleMember">
+    <Key>
+      <PropertyRef Name="GroupName" />
+      <PropertyRef Name="MemberName" />
+    </Key>
+    <Property Type="String" Name="GroupName" Nullable="false" MaxLength="150" FixedLength="false" Unicode="true" />
+    <Property Type="String" Name="MemberName" Nullable="false" MaxLength="150" FixedLength="false" Unicode="true" />
+    <Property Type="String" Name="MemberDisplayName" Nullable="false" MaxLength="150" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <EntityType Name="AdCachedUserProperty">
+    <Key>
+      <PropertyRef Name="UserName" />
+      <PropertyRef Name="PropertyName" />
+    </Key>
+    <Property Type="String" Name="UserName" Nullable="false" MaxLength="150" FixedLength="false" Unicode="true" />
+    <Property Type="String" Name="PropertyName" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Type="String" Name="PropertyValue" MaxLength="250" FixedLength="false" Unicode="true" />
+    <Property Type="DateTime" Name="LastRefreshed" Precision="3" />
+    <Property Type="Boolean" Name="IsActiveInAd" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Setting">
+    <Key>
+      <PropertyRef Name="SettingName" />
+    </Key>
+    <Property Type="String" Name="SettingName" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Type="String" Name="SettingValue" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Type="String" Name="DefaultValue" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Type="String" Name="SettingType" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Type="String" Name="SettingDescription" MaxLength="Max" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <EntityType Name="Ticket">
+    <Key>
+      <PropertyRef Name="TicketId" />
+    </Key>
+    <Property Type="Int32" Name="TicketId" Nullable="false" a:StoreGeneratedPattern="Identity" xmlns:a="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
+    <Property Type="String" Name="Type" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Type="String" Name="Category" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Type="String" Name="SubCategory" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Type="String" Name="Title" Nullable="false" MaxLength="500" FixedLength="false" Unicode="true" />
+    <Property Type="String" Name="Details" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Type="String" Name="Result" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Type="String" Name="TestOutline" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Type="String" Name="TargetDevice" MaxLength="200" FixedLength="false" Unicode="true" />
+    <Property Type="String" Name="TargetVersion" MaxLength="400" FixedLength="false" Unicode="true" />
+    <Property Type="String" Name="AnalysisDetail" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Type="String" Name="AnalysisRemark" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Type="String" Name="AnalysisNote" MaxLength="1000" FixedLength="false" Unicode="true" />
+    <Property Type="Boolean" Name="IsHtml" Nullable="false" />
+    <Property Type="String" Name="TagList" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Type="String" Name="CreatedBy" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Type="DateTime" Name="CreatedDate" Nullable="false" Precision="3" />
+    <Property Type="String" Name="Owner" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Type="String" Name="AssignedTo" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Type="String" Name="CurrentStatus" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Type="DateTime" Name="CurrentStatusDate" Nullable="false" Precision="3" />
+    <Property Type="String" Name="CurrentStatusSetBy" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Type="String" Name="LastUpdateBy" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Type="DateTime" Name="LastUpdateDate" Nullable="false" Precision="3" />
+    <Property Type="String" Name="Priority" MaxLength="25" FixedLength="false" Unicode="true" />
+    <Property Type="Boolean" Name="AffectsCustomer" Nullable="false" />
+    <Property Type="Boolean" Name="PublishedToKb" Nullable="false" />
+    <Property Type="Binary" Name="Version" Nullable="false" MaxLength="8" FixedLength="true" a:StoreGeneratedPattern="Computed" xmlns:a="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
+    <NavigationProperty Name="TicketAttachments" Relationship="TicketDeskModel.FK_TicketAttachments_Tickets" FromRole="Ticket" ToRole="TicketAttachment" />
+    <NavigationProperty Name="TicketComments" Relationship="TicketDeskModel.FK_TicketComments_Tickets" FromRole="Ticket" ToRole="TicketComment" />
+    <NavigationProperty Name="TicketTags" Relationship="TicketDeskModel.FK_TicketTags_Tickets" FromRole="Ticket" ToRole="TicketTag" />
+  </EntityType>
+  <Association Name="FK_TicketAttachments_Tickets">
+    <End Type="TicketDeskModel.Ticket" Role="Ticket" Multiplicity="0..1" />
+    <End Type="TicketDeskModel.TicketAttachment" Role="TicketAttachment" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Ticket">
+        <PropertyRef Name="TicketId" />
+      </Principal>
+      <Dependent Role="TicketAttachment">
+        <PropertyRef Name="TicketId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_TicketComments_Tickets">
+    <End Type="TicketDeskModel.Ticket" Role="Ticket" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Type="TicketDeskModel.TicketComment" Role="TicketComment" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Ticket">
+        <PropertyRef Name="TicketId" />
+      </Principal>
+      <Dependent Role="TicketComment">
+        <PropertyRef Name="TicketId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_TicketTags_Tickets">
+    <End Type="TicketDeskModel.Ticket" Role="Ticket" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Type="TicketDeskModel.TicketTag" Role="TicketTag" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Ticket">
+        <PropertyRef Name="TicketId" />
+      </Principal>
+      <Dependent Role="TicketTag">
+        <PropertyRef Name="TicketId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema>

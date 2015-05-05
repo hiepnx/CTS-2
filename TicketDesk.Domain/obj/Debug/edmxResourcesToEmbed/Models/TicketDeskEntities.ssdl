@@ -1,0 +1,202 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="TicketDeskModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityContainer Name="TicketDeskModelStoreContainer">
+    <EntitySet Name="AdCachedRoleMembers" EntityType="TicketDeskModel.Store.AdCachedRoleMembers" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="AdCachedUserProperties" EntityType="TicketDeskModel.Store.AdCachedUserProperties" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Settings" EntityType="TicketDeskModel.Store.Settings" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="TicketAttachments" EntityType="TicketDeskModel.Store.TicketAttachments" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="TicketComments" EntityType="TicketDeskModel.Store.TicketComments" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="TicketEventNotifications" EntityType="TicketDeskModel.Store.TicketEventNotifications" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Tickets" EntityType="TicketDeskModel.Store.Tickets" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="TicketTags" EntityType="TicketDeskModel.Store.TicketTags" store:Type="Tables" Schema="dbo" />
+    <AssociationSet Name="FK_TicketAttachments_Tickets" Association="TicketDeskModel.Store.FK_TicketAttachments_Tickets">
+      <End Role="Tickets" EntitySet="Tickets" />
+      <End Role="TicketAttachments" EntitySet="TicketAttachments" />
+    </AssociationSet>
+    <AssociationSet Name="FK_TicketComments_Tickets" Association="TicketDeskModel.Store.FK_TicketComments_Tickets">
+      <End Role="Tickets" EntitySet="Tickets" />
+      <End Role="TicketComments" EntitySet="TicketComments" />
+    </AssociationSet>
+    <AssociationSet Name="FK_TicketEventNotifications_TicketComments" Association="TicketDeskModel.Store.FK_TicketEventNotifications_TicketComments">
+      <End Role="TicketComments" EntitySet="TicketComments" />
+      <End Role="TicketEventNotifications" EntitySet="TicketEventNotifications" />
+    </AssociationSet>
+    <AssociationSet Name="FK_TicketTags_Tickets" Association="TicketDeskModel.Store.FK_TicketTags_Tickets">
+      <End Role="Tickets" EntitySet="Tickets" />
+      <End Role="TicketTags" EntitySet="TicketTags" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="AdCachedRoleMembers">
+    <Key>
+      <PropertyRef Name="GroupName" />
+      <PropertyRef Name="MemberName" />
+    </Key>
+    <Property Name="GroupName" Type="nvarchar" Nullable="false" MaxLength="150" />
+    <Property Name="MemberName" Type="nvarchar" Nullable="false" MaxLength="150" />
+    <Property Name="MemberDisplayName" Type="nvarchar" Nullable="false" MaxLength="150" />
+  </EntityType>
+  <EntityType Name="AdCachedUserProperties">
+    <Key>
+      <PropertyRef Name="UserName" />
+      <PropertyRef Name="PropertyName" />
+    </Key>
+    <Property Name="UserName" Type="nvarchar" Nullable="false" MaxLength="150" />
+    <Property Name="PropertyName" Type="nvarchar" Nullable="false" MaxLength="100" />
+    <Property Name="PropertyValue" Type="nvarchar" MaxLength="250" />
+    <Property Name="LastRefreshed" Type="datetime" />
+    <Property Name="IsActiveInAd" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Settings">
+    <Key>
+      <PropertyRef Name="SettingName" />
+    </Key>
+    <Property Name="SettingName" Type="nvarchar" Nullable="false" MaxLength="50" />
+    <Property Name="SettingValue" Type="nvarchar(max)" />
+    <Property Name="DefaultValue" Type="nvarchar(max)" />
+    <Property Name="SettingType" Type="nvarchar" Nullable="false" MaxLength="50" />
+    <Property Name="SettingDescription" Type="nvarchar(max)" />
+  </EntityType>
+  <EntityType Name="TicketAttachments">
+    <Key>
+      <PropertyRef Name="FileId" />
+    </Key>
+    <Property Name="TicketId" Type="int" />
+    <Property Name="FileId" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="FileName" Type="nvarchar" Nullable="false" MaxLength="255" />
+    <Property Name="FileSize" Type="int" Nullable="false" />
+    <Property Name="FileType" Type="nvarchar" Nullable="false" MaxLength="250" />
+    <Property Name="UploadedBy" Type="nvarchar" Nullable="false" MaxLength="100" />
+    <Property Name="UploadedDate" Type="datetime" Nullable="false" />
+    <Property Name="FileContents" Type="varbinary(max)" Nullable="false" />
+    <Property Name="FileDescription" Type="nvarchar" MaxLength="500" />
+    <Property Name="IsPending" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="TicketComments">
+    <Key>
+      <PropertyRef Name="TicketId" />
+      <PropertyRef Name="CommentId" />
+    </Key>
+    <Property Name="TicketId" Type="int" Nullable="false" />
+    <Property Name="CommentId" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="CommentEvent" Type="nvarchar" MaxLength="500" />
+    <Property Name="Comment" Type="ntext" />
+    <Property Name="IsHtml" Type="bit" Nullable="false" />
+    <Property Name="CommentedBy" Type="nvarchar" Nullable="false" MaxLength="100" />
+    <Property Name="CommentedDate" Type="datetime" Nullable="false" />
+    <Property Name="Version" Type="timestamp" Nullable="false" StoreGeneratedPattern="Computed" />
+  </EntityType>
+  <EntityType Name="TicketEventNotifications">
+    <Key>
+      <PropertyRef Name="TicketId" />
+      <PropertyRef Name="CommentId" />
+      <PropertyRef Name="NotifyUser" />
+    </Key>
+    <Property Name="TicketId" Type="int" Nullable="false" />
+    <Property Name="CommentId" Type="int" Nullable="false" />
+    <Property Name="NotifyUser" Type="nvarchar" Nullable="false" MaxLength="100" />
+    <Property Name="NotifyUserDisplayName" Type="nvarchar" Nullable="false" MaxLength="100" />
+    <Property Name="NotifyEmail" Type="nvarchar" Nullable="false" MaxLength="255" />
+    <Property Name="NotifyUserReason" Type="nvarchar" Nullable="false" MaxLength="50" />
+    <Property Name="CreatedDate" Type="datetime" Nullable="false" />
+    <Property Name="DeliveryAttempts" Type="int" Nullable="false" />
+    <Property Name="LastDeliveryAttemptDate" Type="datetime" />
+    <Property Name="Status" Type="nvarchar" Nullable="false" MaxLength="20" />
+    <Property Name="NextDeliveryAttemptDate" Type="datetime" />
+    <Property Name="EventGeneratedByUser" Type="nvarchar" Nullable="false" MaxLength="100" />
+  </EntityType>
+  <EntityType Name="Tickets">
+    <Key>
+      <PropertyRef Name="TicketId" />
+    </Key>
+    <Property Name="TicketId" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="Type" Type="nvarchar" Nullable="false" MaxLength="50" />
+    <Property Name="Category" Type="nvarchar" Nullable="false" MaxLength="50" />
+    <Property Name="SubCategory" Type="nvarchar" MaxLength="50" />
+    <Property Name="Title" Type="nvarchar" Nullable="false" MaxLength="500" />
+    <Property Name="Details" Type="ntext" Nullable="false" />
+    <Property Name="Result" Type="nvarchar" MaxLength="50" />
+    <Property Name="TestOutline" Type="ntext" />
+    <Property Name="TargetDevice" Type="nvarchar" MaxLength="200" />
+    <Property Name="TargetVersion" Type="nvarchar" MaxLength="400" />
+    <Property Name="AnalysisDetail" Type="ntext" />
+    <Property Name="AnalysisRemark" Type="ntext" />
+    <Property Name="AnalysisNote" Type="nvarchar" MaxLength="1000" />
+    <Property Name="IsHtml" Type="bit" Nullable="false" />
+    <Property Name="TagList" Type="nvarchar" MaxLength="100" />
+    <Property Name="CreatedBy" Type="nvarchar" Nullable="false" MaxLength="100" />
+    <Property Name="CreatedDate" Type="datetime" Nullable="false" />
+    <Property Name="Owner" Type="nvarchar" Nullable="false" MaxLength="100" />
+    <Property Name="AssignedTo" Type="nvarchar" MaxLength="100" />
+    <Property Name="CurrentStatus" Type="nvarchar" Nullable="false" MaxLength="50" />
+    <Property Name="CurrentStatusDate" Type="datetime" Nullable="false" />
+    <Property Name="CurrentStatusSetBy" Type="nvarchar" Nullable="false" MaxLength="100" />
+    <Property Name="LastUpdateBy" Type="nvarchar" Nullable="false" MaxLength="100" />
+    <Property Name="LastUpdateDate" Type="datetime" Nullable="false" />
+    <Property Name="Priority" Type="nvarchar" MaxLength="25" />
+    <Property Name="AffectsCustomer" Type="bit" Nullable="false" />
+    <Property Name="PublishedToKb" Type="bit" Nullable="false" />
+    <Property Name="Version" Type="timestamp" Nullable="false" StoreGeneratedPattern="Computed" />
+  </EntityType>
+  <EntityType Name="TicketTags">
+    <Key>
+      <PropertyRef Name="TicketTagId" />
+    </Key>
+    <Property Name="TicketTagId" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="TagName" Type="nvarchar" Nullable="false" MaxLength="100" />
+    <Property Name="TicketId" Type="int" Nullable="false" />
+  </EntityType>
+  <Association Name="FK_TicketAttachments_Tickets">
+    <End Role="Tickets" Type="TicketDeskModel.Store.Tickets" Multiplicity="0..1" />
+    <End Role="TicketAttachments" Type="TicketDeskModel.Store.TicketAttachments" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Tickets">
+        <PropertyRef Name="TicketId" />
+      </Principal>
+      <Dependent Role="TicketAttachments">
+        <PropertyRef Name="TicketId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_TicketComments_Tickets">
+    <End Role="Tickets" Type="TicketDeskModel.Store.Tickets" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="TicketComments" Type="TicketDeskModel.Store.TicketComments" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Tickets">
+        <PropertyRef Name="TicketId" />
+      </Principal>
+      <Dependent Role="TicketComments">
+        <PropertyRef Name="TicketId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_TicketEventNotifications_TicketComments">
+    <End Role="TicketComments" Type="TicketDeskModel.Store.TicketComments" Multiplicity="1" />
+    <End Role="TicketEventNotifications" Type="TicketDeskModel.Store.TicketEventNotifications" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TicketComments">
+        <PropertyRef Name="TicketId" />
+        <PropertyRef Name="CommentId" />
+      </Principal>
+      <Dependent Role="TicketEventNotifications">
+        <PropertyRef Name="TicketId" />
+        <PropertyRef Name="CommentId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_TicketTags_Tickets">
+    <End Role="Tickets" Type="TicketDeskModel.Store.Tickets" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="TicketTags" Type="TicketDeskModel.Store.TicketTags" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Tickets">
+        <PropertyRef Name="TicketId" />
+      </Principal>
+      <Dependent Role="TicketTags">
+        <PropertyRef Name="TicketId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema>
