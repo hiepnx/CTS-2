@@ -16,3 +16,12 @@ D:\GitHub\CTS\TicketDesk.Domain\bin\Debug\Lucene.Net.xml
 D:\GitHub\CTS\TicketDesk.Domain\obj\Debug\TicketDesk.Domain.dll
 D:\GitHub\CTS\TicketDesk.Domain\obj\Debug\TicketDesk.Domain.pdb
 D:\GitHub\CTS\TicketDesk.Domain\obj\Debug\TicketDesk.Domain.csprojResolveAssemblyReference.cache
+D:\GitHub\CTS-2\TicketDesk.Domain\bin\Debug\TicketDesk.Domain.dll.config
+D:\GitHub\CTS-2\TicketDesk.Domain\bin\Debug\TicketDesk.Domain.dll
+D:\GitHub\CTS-2\TicketDesk.Domain\bin\Debug\TicketDesk.Domain.pdb
+D:\GitHub\CTS-2\TicketDesk.Domain\bin\Debug\Lucene.Net.dll
+D:\GitHub\CTS-2\TicketDesk.Domain\bin\Debug\Lucene.Net.pdb
+D:\GitHub\CTS-2\TicketDesk.Domain\bin\Debug\Lucene.Net.xml
+D:\GitHub\CTS-2\TicketDesk.Domain\obj\Debug\TicketDesk.Domain.csprojResolveAssemblyReference.cache
+D:\GitHub\CTS-2\TicketDesk.Domain\obj\Debug\TicketDesk.Domain.dll
+D:\GitHub\CTS-2\TicketDesk.Domain\obj\Debug\TicketDesk.Domain.pdb
